@@ -36,12 +36,6 @@ public class MinesFinder extends JFrame {
 //            }
 //        });
 
-//        btnEasy.addActionListener(new ActionListener() {}) {
-//            @Override
-//                    public void actionPerformed()(ActionEvent e) {
-//                System.out.println("Easy Clicked");
-//            }
-//        };
 
         btnEasy.addActionListener(this::btnExitActionPerformed);
         btnEasy.addActionListener(this::btnEasyActionPerformed);
