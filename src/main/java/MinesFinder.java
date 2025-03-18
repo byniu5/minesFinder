@@ -17,6 +17,8 @@ public class MinesFinder extends JFrame {
     private JLabel lblPlayerMedium;
     private JLabel lblPlayerHard;
 
+
+
     public MinesFinder(String title) {
 
         super(title);
@@ -28,20 +30,10 @@ public class MinesFinder extends JFrame {
         lblPlayerEasy.setText("Carlos");
         lblScoreEasy.setText("100");
 
-
-//        btnExit.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                System.exit(0);
-//            }
-//        });
-
-
-        btnEasy.addActionListener(this::btnExitActionPerformed);
+        btnExit.addActionListener(this::btnExitActionPerformed);
         btnEasy.addActionListener(this::btnEasyActionPerformed);
         btnMedium.addActionListener(this::btnMediumActionPerformed);
         btnHard.addActionListener(this::btnHardActionPerformed);
-
     }
 
     public static void main(String[] args) {
@@ -52,18 +44,25 @@ public class MinesFinder extends JFrame {
 
     private void btnExitActionPerformed(ActionEvent e) {
         System.out.println("Exit Clicked");
+        System.exit(0);
     }
 
     private void btnEasyActionPerformed(ActionEvent e) {
         System.out.println("Easy Clicked");
+        var window = new GameWindow(new MineField(9, 9, 10));
+        window.setVisible(true);
     }
 
     private void btnMediumActionPerformed(ActionEvent e) {
         System.out.println("Medium Clicked");
+        var window = new GameWindow(new MineField(16, 16, 20));
+        window.setVisible(true);
     }
 
     private void btnHardActionPerformed(ActionEvent e) {
         System.out.println("Hard Clicked");
+        var window = new GameWindow(new MineField(30, 16, 30));
+        window.setVisible(true);
     }
 
 }
