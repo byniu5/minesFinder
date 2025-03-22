@@ -25,8 +25,8 @@ public class MinesweeperButton extends JButton {
     }
 
     /**
-    * Setting state for one button
-     * Depend on the number that is given to parameter 'state'
+    * Setting state for one button.
+     * Depend on the number that is given to parameter 'state'.
      *
     * */
     public void setState(int state) {

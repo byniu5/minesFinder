@@ -18,8 +18,8 @@ public class MineField {
     private boolean firstMove;
 
     /**
-    * Initialization of board based on chosen difficulty
-     * Assign 'covered' state to all squares
+    * Initialization of board based on chosen difficulty.
+     * Assign 'covered' state to all squares.
      */
     public MineField(int nrLines, int nrColumns, int nrMines) {
 
@@ -40,7 +40,7 @@ public class MineField {
     }
 
     /**
-    * Getters
+    * Getters.
      *
      */
     public int getStateOfSquare(int x, int y)
@@ -65,9 +65,21 @@ public class MineField {
         return nrMines;     // Enough
     }
 
+    public void markAsHavingMine(int x, int y) {
+        state[x][y] = MARKED;
+    }
+
+    public void markAsSuspect(int x, int y) {
+        state[x][y] = QUESTION;
+    }
+
+    public void unmark(int x, int y) {
+        state[x][y] = COVERED;
+    }
+
     /**
-    * Generate mines on all randomly on all board
-     * Except the square that was clicked
+    * Generate mines on all randomly on all board.
+     * Except the square that was clicked.
      */
     private void setMines(int exceptX, int exceptY) {
         var random = new Random();
@@ -81,14 +93,14 @@ public class MineField {
             } while (x == exceptX && y == exceptY || mines[x][y]);
 
         mines[x][y] = true;
-        state[x][y] = MINE;
+        //state[x][y] = MINE; // If I click on the mine field then I need to change the state on MINE
         }
     }
 
     /**
-    * Directly after clicking button
-     * Only covered buttons can make any action
-     * Generate mines after first move
+    * Directly after clicking button.
+     * Only covered buttons can make any action.
+     * Generate mines after first move.
      *
      */
     public void revealSquare(int x, int y) {
