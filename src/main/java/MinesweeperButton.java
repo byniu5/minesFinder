@@ -5,9 +5,21 @@ public class MinesweeperButton extends JButton {
 
     private int state;
 
-    public MinesweeperButton() {
+    private int line;
+    private int column;
+
+    public MinesweeperButton(int line, int column) {
         this.state = MineField.EMPTY;
 
+        this.line = line;
+        this.column = column;
+    }
+
+    public int getLine() {
+        return line;
+    }
+    public int getColumn() {
+        return column;
     }
 
     public void setState(int state) {

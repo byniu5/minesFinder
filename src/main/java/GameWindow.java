@@ -22,8 +22,8 @@ public class GameWindow extends JFrame
 
         for (int i = 0; i < nrLines; ++i) {
             for (int j = 0; j < nrColumns; ++j) {
-                buttons[i][j] = new MinesweeperButton();    // ??
-                buttons[i][j].addActionListener(this::btnClick);
+                buttons[i][j] = new MinesweeperButton(i, j);
+                buttons[i][j].addActionListener(this::btnMinefieldClickActionPerformed);
                 //buttons[i][j].setState(mineField.getStateOfSquare(i, j)); // ??
                 panelGame.add(buttons[i][j]);
             }
@@ -36,11 +36,15 @@ public class GameWindow extends JFrame
 
     }
 
-    public void btnClick(ActionEvent e)
+    public void btnMinefieldClickActionPerformed(ActionEvent e)
     {
         var button = (MinesweeperButton) e.getSource();
 
-        //mineField.revealSquare(x, y);
+        var x = button.getLine();
+        var y = button.getColumn();
+
+        buttons[x][y].setState(mineField.getStateOfSquare(x, y));
+        mineField.revealSquare(x, y);
     }
 
         public static void main(String[] args) {

@@ -19,8 +19,6 @@ public class MineField {
     private boolean gameFinished;
     private boolean playerDefeated;
 
-
-
     public MineField(int nrLines, int nrColumns, int nrMines) {
 
         this.nrLines = nrLines;
