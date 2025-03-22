@@ -7,6 +7,7 @@ public class MinesweeperButton extends JButton {
 
     public MinesweeperButton() {
         this.state = MineField.EMPTY;
+
     }
 
     public void setState(int state) {
@@ -28,14 +29,17 @@ public class MinesweeperButton extends JButton {
                 setText("?");
                 setBackground(Color.YELLOW);
                 break;
-            case MineField.SAFE:
-                setText("");
-                setBackground(Color.WHITE);
+            case MineField.COVERED:
+                setText("x");
+                setBackground(Color.GREEN);
+                break;
 
             default:
                 setText(String.valueOf(state));
-                setBackground(Color.LIGHT_GRAY);
+                setBackground(Color.BLACK);
         }
     }
+
+
 
 }

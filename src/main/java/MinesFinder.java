@@ -18,7 +18,6 @@ public class MinesFinder extends JFrame {
     private JLabel lblPlayerHard;
 
 
-
     public MinesFinder(String title) {
 
         super(title);
