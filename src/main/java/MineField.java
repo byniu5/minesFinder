@@ -16,21 +16,20 @@ public class MineField {
     private int nrMines;
 
     private boolean firstMove;
-    private boolean gameFinished;
-    private boolean playerDefeated;
 
+    /**
+    * Initialization of board based on chosen difficulty
+     * Assign 'covered' state to all squares
+     */
     public MineField(int nrLines, int nrColumns, int nrMines) {
 
         this.nrLines = nrLines;
         this.nrColumns = nrColumns;
         this.nrMines = nrMines;
 
-        this.mines = new boolean[nrLines][nrColumns]; //If there is mine or not
+        this.mines = new boolean[nrLines][nrColumns]; //If there is mine true; otherwise false
         this.state = new int[nrLines][nrColumns];   // State marked by player
-
         firstMove = true;
-        gameFinished = false;
-        playerDefeated = false;
 
         for (var x = 0; x < nrLines; ++x) {
             for (var y = 0; y < nrColumns; ++y) {
@@ -40,6 +39,10 @@ public class MineField {
 
     }
 
+    /**
+    * Getters
+     *
+     */
     public int getStateOfSquare(int x, int y)
     {
         return state[x][y];
@@ -62,15 +65,11 @@ public class MineField {
         return nrMines;     // Enough
     }
 
-    public boolean isPlayerDefeated() {
-        return playerDefeated;
-    }
-
-    public boolean isGameFinished() {
-        return gameFinished;
-    }
-
-    private void setMine(int exceptX, int exceptY) {
+    /**
+    * Generate mines on all randomly on all board
+     * Except the square that was clicked
+     */
+    private void setMines(int exceptX, int exceptY) {
         var random = new Random();
         var x = 0;
         var y = 0;
@@ -82,50 +81,24 @@ public class MineField {
             } while (x == exceptX && y == exceptY || mines[x][y]);
 
         mines[x][y] = true;
+        state[x][y] = MINE;
         }
     }
 
+    /**
+    * Directly after clicking button
+     * Only covered buttons can make any action
+     * Generate mines after first move
+     *
+     */
     public void revealSquare(int x, int y) {
-        if (gameFinished || state[x][y] < COVERED)
+        if (state[x][y] < COVERED)
             return;
         if (firstMove) {
             firstMove = false;
-            setMine(x, y);
+            setMines(x, y);
         }
-        if (mines[x][y]) {
-            playerDefeated = true;
-            gameFinished = true;
-            state[x][y] = MINE;
-            return;
-        }
-        int numNeighborMines = countNeighborMines(x, y);
-        if (numNeighborMines == 0) {
-            state[x][y] = EMPTY;
-            // Reveal other squares that no have mines
-            revealNeighborGrids(x, y);
-        } else {
-            state[x][y] = numNeighborMines;
-        }
-    }
+        state[x][y] = EMPTY;
 
-    private int countNeighborMines(int x, int y) {
-        var numNeighborMines = 0;
-
-        for (var i = Math.max(0, x-1); i < Math.min(nrLines, x+2); ++i) {
-            for (var j = Math.max(0, y-1); j < Math.min(nrColumns, y+2); ++j) {
-                if (mines[i][j]) {
-                    ++numNeighborMines;
-                }
-            }
-        }
-        return numNeighborMines;
-    }
-
-    private void revealNeighborGrids(int x, int y) {
-        for (var i = Math.max(0, x-1); i < Math.min(nrLines, x+2); ++i) {
-            for (var j = Math.max(0, y-1); j < Math.min(nrColumns, y+2); ++j) {
-                revealSquare(i, j);
-            }
-        }
     }
 }

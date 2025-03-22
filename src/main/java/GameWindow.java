@@ -10,6 +10,11 @@ public class GameWindow extends JFrame
     private MinesweeperButton[][] buttons;
     private MineField mineField;
 
+    /**
+    * Get access to the size of board
+     * Set grid layout for this window
+     * Initialise every button on board
+    * */
     public GameWindow(MineField mineField)
     {
         this.mineField = mineField;
@@ -22,9 +27,10 @@ public class GameWindow extends JFrame
 
         for (int i = 0; i < nrLines; ++i) {
             for (int j = 0; j < nrColumns; ++j) {
-                buttons[i][j] = new MinesweeperButton(i, j);
-                buttons[i][j].addActionListener(this::btnMinefieldClickActionPerformed);
-                //buttons[i][j].setState(mineField.getStateOfSquare(i, j)); // ??
+                buttons[i][j] = new MinesweeperButton(i, j);    // ??
+                buttons[i][j].addActionListener(this::btnMinesweeperButtonActionPerformed); // ??
+                //buttons[i][j].setState(mineField.getStateOfSquare(i, j));
+
                 panelGame.add(buttons[i][j]);
             }
         }
@@ -36,14 +42,20 @@ public class GameWindow extends JFrame
 
     }
 
-    public void btnMinefieldClickActionPerformed(ActionEvent e)
-    {
+    /**
+    * When button clicked start those actions
+     * Get access to position of button
+     * Reveal square and check all rules
+     * After that get the final state of the square
+    * */
+    public void btnMinesweeperButtonActionPerformed(ActionEvent e) {
         var button = (MinesweeperButton) e.getSource();
-
-        var x = button.getLine();
+        var x = button.getRow();
         var y = button.getColumn();
 
-        buttons[x][y].setState(mineField.getStateOfSquare(x, y));
+        System.out.println("Clicked on (" + x + "," + y + ")");
+
+        button.setState(mineField.getStateOfSquare(x, y));
         mineField.revealSquare(x, y);
     }
 
